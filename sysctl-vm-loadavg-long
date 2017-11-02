@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# sysctl-vm-loadavg-long:
+# print the sysctl vm loadavg longest-duration number
+#
+# Syntax:
+#
+#     sysctl_loadavg_long
+#
+# Example:
+#
+#     $ sysctl_loadavg_long
+#     0.89
+#
+# 
+# ## Tracking
+#
+#   * Package: sysctl-vm-loadavg-long
+#   * Version: 1.0.0
+#   * Created: 2015-11-01
+#   * Updated: 2017-11-02
+#   * License: GPL
+#   * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+set -euf
+sysctl -n vm.loadavg | sed -n 's/.* \([[:digit:]\.]\+\).*/\1/p'
