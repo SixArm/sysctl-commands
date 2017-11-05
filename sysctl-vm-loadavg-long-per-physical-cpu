@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# sysctl-vm-loadavg-long-per-physical-cpu:
+# print the sysctl vm loadavg longest-duration number
+#
+# Syntax:
+#
+#     sysctl-vm-loadavg-long-per-physical-cpu
+#
+# Example:
+#
+#     $ sysctl-vm-loadavg-long-per-physical-cpu
+#     0.89
+#
+# 
+# ## Tracking
+#
+#   * Package: sysctl-vm-loadavg-long-per-physical-cpu
+#   * Version: 1.1.0
+#   * Created: 2015-11-01
+#   * Updated: 2017-11-04
+#   * License: GPL
+#   * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+set -euf
+load=$(sysctl -n vm.loadavg | sed -n 's/.* \([[:digit:]\.]\+\).*/\1/p')
+cpus=$(sysctl -n hw.physicalcpu)
+perl -e 'printf("%.2f\n", $ARGV[0] / $ARGV[1]);' $load $cpus
